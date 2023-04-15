@@ -12,12 +12,8 @@ public class PrimalityTest {
 
         String n = bufferedReader.readLine();
         
-        BigInteger bigInt = new BigInteger(n);
-        
-        if(bigInt.isProbablePrime(1))
-			System.out.println("prime");
-        else 
-        	System.out.println("not prime");
+        boolean isPrime = new BigInteger(n).isProbablePrime(1);
+        System.out.println(isPrime ? "prime" : "not prime");
         	
         bufferedReader.close();
     }
