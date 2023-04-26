@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 class Student1 {
@@ -60,21 +61,23 @@ class Priorities {
 				.thenComparing(Student1::getName)
 				.thenComparing(Student1::getId);
 		
-		List<Student1> students = new ArrayList<>();
+		PriorityQueue<Student1> studentQueue = new PriorityQueue<>(student1Comparator);
 		
 		for(String event : events) {
 			String[] eventArray = event.split("\\s");
 			
 			if(eventArray.length == 1) {
-				Collections.sort(students, student1Comparator);
-
-				if(!students.isEmpty()) students.remove(0);
+				studentQueue.poll();
 
 			} else {
-				students.add(new Student1(Integer.parseInt(eventArray[3]), eventArray[1], Double.parseDouble(eventArray[2])));
+				studentQueue.offer(new Student1(Integer.parseInt(eventArray[3]), eventArray[1], Double.parseDouble(eventArray[2])));
 			}
 
 		}
+		
+		List<Student1> students = new ArrayList<>(studentQueue);
+		
+		Collections.sort(students, student1Comparator);
 		
 		return students;
 	}
